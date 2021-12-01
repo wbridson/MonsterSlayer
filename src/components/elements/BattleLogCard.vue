@@ -1,5 +1,5 @@
 <template>
-  <base-card id="log">
+  <v-card id="log">
     <h2>Battle Log</h2>
     <ul>
       <li v-for="messages in log" :key="messages.messageID">
@@ -31,12 +31,16 @@
         </span>
       </li>
     </ul>
-  </base-card>
+  </v-card>
 </template>
 
 <script>
 export default {
-    inject: ['log'],
+    computed: {
+      log(){
+        return this.$store.getters.log;
+      }
+    }
 };
 </script>
 

@@ -1,8 +1,8 @@
 const state = {
   playerMaxHealth: 100,
   playerCurrentHealth: 100,
-  playerAtk: 10,
-  playerDef: .1,
+  playerAtk: 5,
+  playerDef: 5,
 };
 
 const getters = {
@@ -12,14 +12,19 @@ const getters = {
   playerCurrentHealth: (state) => {
     return state.playerCurrentHealth;
   },
+  playerAtk: (state) => {
+    return state.playerAtk;
+  },
+  playerDef: (state) => {
+    return state.playerDef;
+  }
 };
 
 const mutations = {
-  heal: (state, payload) => {
+  healPlayer: (state, payload) => {
     state.playerCurrentHealth += payload;
   },
-  damage: (state, payload) => {
-    payload -= (state.playerDef * payload);
+  damagePlayer: (state, payload) => {
     state.playerCurrentHealth -= payload;
   },
 };

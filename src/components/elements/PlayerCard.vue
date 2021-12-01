@@ -7,10 +7,11 @@
 
 <script>
 import BaseHealthBar from "../UI/BaseHealthBar.vue";
+import { mapGetters } from "vuex";
 export default {
   components: {
     BaseHealthBar,
   },
-  props: ["playerCurrentHealth", "playerMaxHealth"],
+  computed: mapGetters(["playerMaxHealth", "playerCurrentHealth"]),
 };
 </script>

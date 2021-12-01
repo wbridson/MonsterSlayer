@@ -9,7 +9,9 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    gold: 0
+    gold: 0,
+    log: [],
+    turnCounter: 0,
   },
   getters,
   mutations,
