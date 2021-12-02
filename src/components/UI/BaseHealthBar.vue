@@ -1,12 +1,13 @@
 <template>
   <section :id="target" class="container">
-    <h3>{{ health }}HP</h3>
+    
     <div class="healthbar">
       <div
         class="healthbar__value"
         :style="barStyles"
       ></div>
     </div>
+    <h3 class="text-right subtitle-2">{{ health }} HP</h3>
   </section>
 </template>
 
@@ -38,7 +39,7 @@ section {
   width: 100%;
   height: 40px;
   border: 1px solid #575757;
-  margin: 1rem 0;
+  margin: .1rem 0;
   background: #fde5e5;
 }
 

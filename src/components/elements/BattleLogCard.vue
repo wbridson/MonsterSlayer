@@ -1,8 +1,9 @@
 <template>
-  <v-card id="log">
+  <v-card id="log" width="50em" class="pa-5">
     <h2>Battle Log</h2>
-    <ul>
+    <ul class="overflow-y-auto" style="max-height: 15em">
       <li v-for="messages in log" :key="messages.messageID">
+        <v-divider class="pb-3"></v-divider>
         <span
           :class="{
             'log--player': messages.actionBy === 'player',

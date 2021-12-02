@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <h2>{{ monsterName }}</h2>
+  <v-card class="pa-3" width="50em">
+    <h2 class="text-center">{{ monsterName }}</h2>
     <base-health-bar target="monster" :health="monsterCurrentHealth" :maxHealth="monsterMaxHealth"></base-health-bar>
   </v-card>
 </template>
