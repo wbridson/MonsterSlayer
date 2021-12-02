@@ -1,8 +1,8 @@
 const state = {
   playerMaxHealth: 100,
   playerCurrentHealth: 100,
-  playerAtk: 5,
-  playerDef: 5,
+  playerAtk: 20,
+  playerDef: 20,
 };
 
 const getters = {
@@ -10,7 +10,7 @@ const getters = {
     return state.playerMaxHealth;
   },
   playerCurrentHealth: (state) => {
-    return state.playerCurrentHealth;
+    return Math.min(Math.max(state.playerCurrentHealth, 0), state.playerMaxHealth);
   },
   playerAtk: (state) => {
     return state.playerAtk;

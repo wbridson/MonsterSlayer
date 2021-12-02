@@ -37,6 +37,20 @@ export default {
       "turnCounter",
     ]),
   },
+  watch:{
+    playerCurrentHealth(newCurrentHealth){
+      if(newCurrentHealth <= 0){
+        this.$store.commit('winner', 'monster');
+        this.$store.commit('updateGold', -75);
+      }
+    },
+    monsterCurrentHealth(newCurrentHealth){
+      if(newCurrentHealth <= 0 && this.playerCurrentHealth > 0){
+        this.$store.commit('winner', 'player');
+        this.$store.commit('updateGold', 100);
+      }
+   },
+  },
   methods: {
     attackMonster() {
       const dmgToMonster = calculateDamage(this.playerAtk, this.monsterDef);

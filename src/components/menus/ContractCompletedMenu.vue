@@ -1,27 +1,87 @@
 <template>
   <section>
-    <span v-if="winner === 'monster'"
-      ><h3>were defeated!</h3>
+    <span v-if="winner === 'monster'" class="text-center"
+      ><h3>You were defeated!</h3>
       <h4>You awaken at a nearby tavern.</h4></span
     >
-    <span v-else-if="winner === 'player'"
+    <span v-else-if="winner === 'player'" class="text-center"
       ><h3>You won!</h3>
       <h4>{{ gold }} gold earned.</h4></span
     >
-    <base-button @click="$emit('buyHealthPotion')">Health Potion (100g)</base-button>
-    <base-button @click="$emit('nextContract')">Accept Next Monster Contract</base-button>
+    <div class="d-flex text-wrap">
+      <button
+        :class="potionButton"
+        style="max-width: 10em; max-height: 5em"
+        @mouseenter="hoverSwitch('potion')"
+        @mouseleave="hoverSwitch('potion')"
+        @click="buyHealthPotion"
+      >
+        Health Potion (100g)
+      </button>
+      <button
+        :class="contractButton"
+        :disabled="playerCurrentHealth > 0 ? false : true"
+        style="max-width: 10em; max-height: 5em"
+        @mouseenter="hoverSwitch('contract')"
+        @mouseleave="hoverSwitch('contract')"
+        @click="acceptNextContract"
+      >
+        Accept Next Monster Contract
+      </button>
+    </div>
   </section>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { heal } from "../../functions.js";
 export default {
-  emits: ["buyHealthPotion, nextContract"],
-  props: {
-    winner: {
-      type: String,
+  data: () => ({
+    isHoveringPotionButton: false,
+    isHoveringContractButton: false,
+    potionPrice: 100,
+  }),
+  computed: {
+    ...mapGetters(["winner", "gold", "playerCurrentHealth", "playerMaxHealth", "activeMonster"]),
+    contractButton() {
+      if (this.isHoveringContractButton && this.playerCurrentHealth > 0) {
+        return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4 elevation-14";
+      } else if (!this.isHoveringContractButton && this.playerCurrentHealth > 0) {
+        return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4";
+      } else {
+        return "blue lighten-4 flex-wrap align-center white--text pa-3 ma-4";
+      }
     },
-    gold: {
-      type: Number,
+    potionButton() {
+      if (this.isHoveringPotionButton && this.gold >= 100) {
+        return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4 elevation-14";
+      } else if (!this.isHoveringPotionButton && this.gold >= 100) {
+        return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4";
+      } else {
+        return "blue lighten-4 flex-wrap align-center white--text pa-3 ma-4";
+      }
+    },
+  },
+  methods: {
+    buyHealthPotion() {
+      if (this.gold >= this.potionPrice) {
+        this.$store.commit("healPlayer", heal(this.playerMaxHealth));
+        this.$store.commit("updateGold", -this.potionPrice);
+      }
+    },
+    acceptNextContract() {
+      this.$store.commit("selectNewMonster");
+      this.$store.commit("resetMonsterHealth");
+      this.$store.commit("winner", "");
+      console.log(this.activeMonster);
+    },
+
+    hoverSwitch(button) {
+      if (button == "potion") {
+        this.isHoveringPotionButton = !this.isHoveringPotionButton;
+      } else if (button == "contract") {
+        this.isHoveringContractButton = !this.isHoveringContractButton;
+      }
     },
   },
 };

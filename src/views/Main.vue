@@ -10,7 +10,7 @@
       <player-card></player-card>
     </section>
     <section id="contractCompletedMenu" class="d-flex justify-center">
-      <contract-completed-menu v-if="winner" :winner="winner" :gold="100"></contract-completed-menu>
+      <contract-completed-menu v-if="winner" :gold="100"></contract-completed-menu>
     </section>
     <section id="battleMenu" class="d-flex justify-center pb-5">
       <battle-menu v-if="!winner"></battle-menu>
@@ -39,10 +39,7 @@ export default {
     BattleLogCard,
   },
   computed: {
-    ...mapGetters(["turnCounter"]),
-    winner() {
-      return "";
-    },
+    ...mapGetters(["turnCounter", "winner"]),
   },
   methods: {
     surrender() {},

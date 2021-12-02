@@ -9,9 +9,10 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    gold: 0,
+    gold: 300,
     log: [],
-    turnCounter: 0,
+    turnCounter: 0, //used for log messageID
+    winner: "",
   },
   getters,
   mutations,
