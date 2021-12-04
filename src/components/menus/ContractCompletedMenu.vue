@@ -11,6 +11,7 @@
     <div class="d-flex text-wrap">
       <button
         :class="potionButton"
+        :disabled="playerCurrentHealth >= playerMaxHealth || gold < potionPrice ? true : false"
         style="max-width: 10em; max-height: 5em"
         @mouseenter="hoverSwitch('potion')"
         @mouseleave="hoverSwitch('potion')"
@@ -53,9 +54,9 @@ export default {
       }
     },
     potionButton() {
-      if (this.isHoveringPotionButton && this.gold >= 100) {
+      if (this.isHoveringPotionButton && this.gold >= 100 && this.playerCurrentHealth < this.playerMaxHealth) {
         return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4 elevation-14";
-      } else if (!this.isHoveringPotionButton && this.gold >= 100) {
+      } else if (!this.isHoveringPotionButton && this.gold >= 100 && this.playerCurrentHealth < this.playerMaxHealth) {
         return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4";
       } else {
         return "blue lighten-4 flex-wrap align-center white--text pa-3 ma-4";
@@ -65,7 +66,11 @@ export default {
   methods: {
     buyHealthPotion() {
       if (this.gold >= this.potionPrice) {
-        this.$store.commit("healPlayer", heal(this.playerMaxHealth));
+        var healAmt = heal(this.playerMaxHealth);
+        if(healAmt + this.playerCurrentHealth > this.playerMaxHealth){
+          healAmt = this.playerMaxHealth - this.playerCurrentHealth;
+        }
+        this.$store.commit("healPlayer", healAmt);
         this.$store.commit("updateGold", -this.potionPrice);
       }
     },

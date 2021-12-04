@@ -5,6 +5,7 @@ const state = {
       monsterID: 0,
       monsterName: "Troll",
       monsterLevel: 1,
+      monsterBaseExpPayout: 45,
       monsterMaxHealth: 200,
       monsterCurrentHealth: 200,
       monsterAtk: 10,
@@ -14,6 +15,7 @@ const state = {
       monsterID: 1,
       monsterName: "Vampire",
       monsterLevel: 1,
+      monsterBaseExpPayout: 25,
       monsterMaxHealth: 90,
       monsterCurrentHealth: 90,
       monsterAtk: 20,
@@ -23,6 +25,7 @@ const state = {
       monsterID: 2,
       monsterName: "Werewolf",
       monsterLevel: 1,
+      monsterBaseExpPayout: 41,
       monsterMaxHealth: 120,
       monsterCurrentHealth: 120,
       monsterAtk: 10,
@@ -39,6 +42,9 @@ const getters = {
   },
   monsterLevel: (state) => {
     return state.monsters[state.activeMonster].monsterLevel;
+  },
+  monsterExpPayout: (state) => {
+    return state.monsters[state.activeMonster].monsterBaseExpPayout * state.monsters[state.activeMonster].monsterLevel;
   },
   monsterMaxHealth: (state) => {
     return state.monsters[state.activeMonster].monsterMaxHealth;
@@ -62,6 +68,9 @@ const mutations = {
   },
   resetMonsterHealth: (state) => {
     state.monsters[state.activeMonster].monsterCurrentHealth = state.monsters[state.activeMonster].monsterMaxHealth;
+  },
+  selectMonsterLevel: (state, payload) => {
+    state.monsters[state.activeMonster].monsterLevel = payload;
   },
   healMonster: (state, payload) => {
     state.monsters[state.activeMonster].monsterCurrentHealth += payload;

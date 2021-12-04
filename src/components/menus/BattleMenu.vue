@@ -34,6 +34,7 @@ export default {
       "monsterMaxHealth",
       "monsterDef",
       "monsterAtk",
+      "monsterExpPayout",
       "turnCounter",
     ]),
   },
@@ -48,6 +49,7 @@ export default {
       if(newCurrentHealth <= 0 && this.playerCurrentHealth > 0){
         this.$store.commit('winner', 'player');
         this.$store.commit('updateGold', 100);
+        this.$store.commit('awardExp', this.monsterExpPayout)
       }
    },
   },
@@ -70,11 +72,11 @@ export default {
         actionValue: dmgToPlayer,
       });
       this.$store.commit("nextTurn");
+      console.log(this.playerCurrentHealth, this.playerMaxHealth)
     },
     specialAttackMonster() {},
     heal() {},
     surrender() {},
   },
-  mounted() {},
 };
 </script>

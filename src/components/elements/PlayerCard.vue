@@ -1,20 +1,36 @@
 <template>
-  <v-card class="pa-3" width="50em">
+  <v-card class="pt-3 px-0 pb-0" width="50em">
     <h2 class="text-center">Player</h2>
-    <base-health-bar target="player" :health="playerCurrentHealth" :maxHealth="playerMaxHealth"></base-health-bar>
+    <div id="healthDisplay">
+      <base-stat-bar targetStat="health" :currentStat="playerCurrentHealth" :maxStat="playerMaxHealth"></base-stat-bar>
+    </div>
+    <div id="manaDisplay" class="text-right">
+      <base-stat-bar targetStat="mana" :currentStat="playerCurrentMana" :maxStat="playerMaxMana"></base-stat-bar>
+    </div>
     <div id="goldDisplay">
-      <h3 class="subtitle-1 text-right">{{gold}} gold</h3>
+      <h3 class="subtitle-1 text-right pr-7">{{ gold }} gold</h3>
+    </div>
+    <div id="expDisplay">
+      <base-stat-bar targetStat="exp" :currentStat="playerExp" :maxStat="playerExpToNextLevel"></base-stat-bar>
     </div>
   </v-card>
 </template>
 
 <script>
-import BaseHealthBar from "../UI/BaseHealthBar.vue";
+import BaseStatBar from "../UI/BaseStatBar.vue";
 import { mapGetters } from "vuex";
 export default {
   components: {
-    BaseHealthBar,
+    BaseStatBar,
   },
-  computed: mapGetters(["playerMaxHealth", "playerCurrentHealth", "gold"]),
+  computed: mapGetters([
+    "playerMaxHealth",
+    "playerCurrentHealth",
+    "playerMaxMana",
+    "playerCurrentMana",
+    "playerExp",
+    "playerExpToNextLevel",
+    "gold",
+  ]),
 };
 </script>
