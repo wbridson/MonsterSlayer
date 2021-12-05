@@ -27,8 +27,10 @@ export default {
     ...mapGetters([
       "playerMaxHealth",
       "playerCurrentHealth",
-      "playerAtk",
-      "playerDef",
+      "playerAtkPoints",
+      "playerAtkValue",
+      "playerDefPoints",
+      "playerDefValue",
       "activeMonster",
       "monsterCurrentHealth",
       "monsterMaxHealth",
@@ -55,8 +57,8 @@ export default {
   },
   methods: {
     attackMonster() {
-      const dmgToMonster = calculateDamage(this.playerAtk, this.monsterDef);
-      const dmgToPlayer = calculateDamage(this.monsterAtk, this.playerDef);
+      const dmgToMonster = calculateDamage(this.playerAtkValue, this.monsterDef);
+      const dmgToPlayer = calculateDamage(this.monsterAtk, this.playerDefValue);
       this.$store.commit("damageMonster", dmgToMonster);
       this.$store.commit("damagePlayer", dmgToPlayer);
       this.$store.commit("pushMessage", {
@@ -72,7 +74,6 @@ export default {
         actionValue: dmgToPlayer,
       });
       this.$store.commit("nextTurn");
-      console.log(this.playerCurrentHealth, this.playerMaxHealth)
     },
     specialAttackMonster() {},
     heal() {},

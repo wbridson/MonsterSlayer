@@ -1,6 +1,7 @@
 <template>
   <v-card class="pt-3 px-0 pb-0" width="50em">
     <h2 class="text-center">Player</h2>
+    <h3 class="text-center subtitle-2">Lvl: {{ playerLevel }}</h3>
     <div id="healthDisplay">
       <base-stat-bar targetStat="health" :currentStat="playerCurrentHealth" :maxStat="playerMaxHealth"></base-stat-bar>
     </div>
@@ -30,6 +31,7 @@ export default {
     "playerCurrentMana",
     "playerExp",
     "playerExpToNextLevel",
+    "playerLevel",
     "gold",
   ]),
 };
