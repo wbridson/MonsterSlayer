@@ -1,9 +1,11 @@
 <template>
   <v-app>
+    <section class="secondary darken-3">
     <the-header></the-header>
-    <v-main>
+    <v-main >
       <router-view />
     </v-main>
+    </section>
   </v-app>
 </template>
 

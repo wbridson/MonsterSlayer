@@ -1,6 +1,6 @@
 <template>
-  <v-card id="log" width="50em" class="pa-5">
-    <h2>Battle Log</h2>
+  <v-card id="log" width="50em" class="pa-5 secondary darken-2">
+    <h2 class="primary--text">Battle Log</h2>
     <ul class="overflow-y-auto" style="max-height: 15em">
       <li v-for="messages in log" :key="messages.messageID">
         <v-divider class="pb-3"></v-divider>
@@ -12,22 +12,22 @@
         >
           {{ messages.actionBy === "player" ? "Player" : "Monster" }}
         </span>
-        <span v-if="messages.actionType === 'heal'">
+        <span v-if="messages.actionType === 'heal'" class="primary--text">
           heals himself for
           <span class="log--heal">{{ messages.actionValue }}</span>
         </span>
-        <span v-else-if="messages.actionType === 'attack'">
+        <span v-else-if="messages.actionType === 'attack'" class="primary--text">
           attacks and deals
           <span class="log--damage">{{ messages.actionValue }}</span>
         </span>
-        <span v-else-if="messages.actionType === 'special attack'">
+        <span v-else-if="messages.actionType === 'special attack'" class="primary--text">
           used a special attack for
           <span class="log--damage">{{ messages.actionValue }}</span>
         </span>
-        <span v-else-if="messages.actionType === 'surrender'">
+        <span v-else-if="messages.actionType === 'surrender'" class="primary--text">
           ran for their life!
         </span>
-        <span v-else>
+        <span v-else class="primary--text">
           You hunt down a new monster. Monster Level: {{ messages.actionValue }}
         </span>
       </li>

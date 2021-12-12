@@ -5,7 +5,7 @@ const state = {
   playerCurrentMana: 0,
   playerMaxHealthPoints: 9,
   playerMaxManaPoints: 5,
-  playerAtkPoints: 20,
+  playerAtkPoints: 30,
   playerAtkValue: 0,
   playerDefPoints: 20,
   playerDefValue: 0,
@@ -75,6 +75,20 @@ const getters = {
   },
   playerExpToNextLevel: (state) => {
     return state.playerExpToNextLevel;
+  },
+  playerStatVariables: (state) => {
+    return {
+      baseHp: state.baseHp,
+      baseMp: state.baseMp,
+      baseAtk: state.baseAtk,
+      baseDef: state.baseDef,
+      baseInt: state.baseInt,
+      hpModifier: state.hpModifier,
+      mpModifier: state.mpModifier,
+      atkModifier: state.atkModifier,
+      defModifier: state.defModifier,
+      intModifier: state.intModifier,
+    }
   }
 };
 
@@ -99,7 +113,26 @@ const mutations = {
   levelUp: (state) => {
     const expOverflow = state.playerExp - state.playerExpToNextLevel;
     state.playerExp = expOverflow;
+    state.attributePointsAvailable++;
     state.playerLevel++;
+  },
+  playerMaxHealthPoints: (state, payload) => {
+    state.playerMaxHealthPoints = payload;
+  },
+  playerMaxManaPoints: (state, payload) => {
+    state.playerMaxManaPoints = payload;
+  },
+  playerAtkPoints: (state, payload) => {
+    state.playerAtkPoints = payload;
+  },
+  playerDefPoints: (state, payload) => {
+    state.playerDefPoints = payload;
+  },
+  playerIntelligencePoints: (state, payload) => {
+    state.playerIntelligencePoints = payload;
+  },
+  attributePointsAvailable: (state, payload) => {
+    state.attributePointsAvailable = payload;
   },
   awardExp: (state, payload) => {
     state.playerExp += payload;

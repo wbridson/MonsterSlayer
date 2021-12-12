@@ -2,18 +2,18 @@
   <section class="pa-6" style="min-width: 50em">
     <v-row >
       <v-col class="text-center">
-        <v-btn large dark width=20em color="deep-purple accent-4" @click="attackMonster">Attack</v-btn>
+        <v-btn large dark width=20em color="btn primary--text" @click="attackMonster">Attack</v-btn>
       </v-col>
       <v-col class="text-center ">
-        <v-btn large dark width=20em color="deep-purple accent-4" @click="specialAttackMonster">Special Attack</v-btn>
+        <v-btn large dark width=20em color="btn primary--text" @click="specialAttackMonster">Special Attack</v-btn>
       </v-col>
     </v-row>
     <v-row>
       <v-col class="text-center">
-        <v-btn large dark width=20em color="deep-purple accent-4" @click="heal">Heal</v-btn>
+        <v-btn large dark width=20em color="btn primary--text" @click="heal">Heal</v-btn>
       </v-col>
       <v-col class="text-center">
-        <v-btn large dark width=20em color="deep-purple accent-4" @click="surrender">Surrender</v-btn>
+        <v-btn large dark width=20em color="btn primary--text" @click="surrender">Surrender</v-btn>
       </v-col>
     </v-row>
   </section>

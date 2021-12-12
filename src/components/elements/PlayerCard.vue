@@ -1,7 +1,7 @@
 <template>
-  <v-card class="pt-3 px-0 pb-0" width="50em">
-    <h2 class="text-center">Player</h2>
-    <h3 class="text-center subtitle-2">Lvl: {{ playerLevel }}</h3>
+  <v-card class="pt-3 px-0 pb-0 secondary darken-2" width="50em">
+    <h2 class="text-center primary--text">Player</h2>
+    <h3 class="text-center subtitle-2 primary--text">Lvl: {{ playerLevel }}</h3>
     <div id="healthDisplay">
       <base-stat-bar targetStat="health" :currentStat="playerCurrentHealth" :maxStat="playerMaxHealth"></base-stat-bar>
     </div>
@@ -9,7 +9,7 @@
       <base-stat-bar targetStat="mana" :currentStat="playerCurrentMana" :maxStat="playerMaxMana"></base-stat-bar>
     </div>
     <div id="goldDisplay">
-      <h3 class="subtitle-1 text-right pr-7">{{ gold }} gold</h3>
+      <h3 class="subtitle-1 text-right pr-7 primary--text">{{ gold }} gold</h3>
     </div>
     <div id="expDisplay">
       <base-stat-bar targetStat="exp" :currentStat="playerExp" :maxStat="playerExpToNextLevel"></base-stat-bar>

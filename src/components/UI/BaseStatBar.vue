@@ -7,7 +7,7 @@
         :style="barStyles"
       ></div>
     </div>
-    <h3 v-if="targetStat != 'exp' " class="text-right subtitle-2">{{ currentStat }} HP</h3>
+    <h3 v-if="targetStat != 'exp' " class="text-right subtitle-2 primary--text">{{ currentStat }} HP</h3>
   </section>
 </template>
 
@@ -57,13 +57,13 @@ section {
   height: 40px;
   border: 1px solid #575757;
   margin: .1rem 0;
-  background: #fde5e5;
+  background: #514e66;
 }
 .mana-stat-bar {
   width: 20%;
   height: 10px;
   border: 1px solid #575757;
-  background: #fde5e5;
+  background: #514e66;
   position: relative;
   left: 80%;
 }

@@ -1,10 +1,10 @@
 <template>
   <section>
-    <span v-if="winner === 'monster'" class="text-center"
+    <span v-if="winner === 'monster'" class="text-center primary--text"
       ><h3>You were defeated!</h3>
       <h4>You awaken at a nearby tavern.</h4></span
     >
-    <span v-else-if="winner === 'player'" class="text-center"
+    <span v-else-if="winner === 'player'" class="text-center primary--text"
       ><h3>You won!</h3>
       <h4>{{ gold }} gold earned.</h4></span
     >
@@ -46,20 +46,20 @@ export default {
     ...mapGetters(["winner", "gold", "playerCurrentHealth", "playerMaxHealth", "activeMonster"]),
     contractButton() {
       if (this.isHoveringContractButton && this.playerCurrentHealth > 0) {
-        return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4 elevation-14";
+        return "btn primary--text d-flex flex-wrap align-center pa-3 ma-4 elevation-14";
       } else if (!this.isHoveringContractButton && this.playerCurrentHealth > 0) {
-        return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4";
+        return "btn primary--text d-flex flex-wrap align-center pa-3 ma-4";
       } else {
-        return "blue lighten-4 flex-wrap align-center white--text pa-3 ma-4";
+        return "btn lighten-4 primary--text flex-wrap align-center pa-3 ma-4";
       }
     },
     potionButton() {
       if (this.isHoveringPotionButton && this.gold >= 100 && this.playerCurrentHealth < this.playerMaxHealth) {
-        return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4 elevation-14";
+        return "btn primary--text d-flex flex-wrap align-center pa-3 ma-4 elevation-14";
       } else if (!this.isHoveringPotionButton && this.gold >= 100 && this.playerCurrentHealth < this.playerMaxHealth) {
-        return "deep-purple accent-4 d-flex flex-wrap align-center white--text pa-3 ma-4";
+        return "btn primary--text d-flex flex-wrap align-center pa-3 ma-4";
       } else {
-        return "blue lighten-4 flex-wrap align-center white--text pa-3 ma-4";
+        return "btn primary--text lighten-4 flex-wrap align-center pa-3 ma-4";
       }
     },
   },

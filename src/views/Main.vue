@@ -1,7 +1,7 @@
 <template>
   <section>
     <section class="d-flex justify-center pb-5">
-      <h2>You've encountered a Monster</h2>
+      <h2 class="primary--text">You've encountered a Monster</h2>
     </section>
     <section id="monsterInfo" class="d-flex justify-center pb-10">
       <monster-card></monster-card>
@@ -10,10 +10,10 @@
       <player-card></player-card>
     </section>
     <section id="contractCompletedMenu" class="d-flex justify-center">
-      <contract-completed-menu v-if="winner" :gold="100"></contract-completed-menu>
+      <contract-completed-menu v-if="winner && !levelUp" :gold="100"></contract-completed-menu>
     </section>
     <section id="levelUpMenu" class="d-flex justify-center">
-      <level-up-menu></level-up-menu>
+      <level-up-menu v-if="levelUp" @closeLevelMenu="levelUp = false"></level-up-menu>
     </section>
     <section id="battleMenu" class="d-flex justify-center pb-5">
       <battle-menu v-if="!winner"></battle-menu>
@@ -43,6 +43,9 @@ export default {
     BattleLogCard,
     LevelUpMenu,
   },
+  data: () => ({
+    levelUp: false,
+  }),
   computed: {
     ...mapGetters([
       "turnCounter",
@@ -61,8 +64,8 @@ export default {
       console.log(newVal + " >= " + this.playerExpToNextLevel);
       if (newVal >= this.playerExpToNextLevel) {
         this.$store.commit("levelUp");
-        // this.$store.commit('playerExpToNextLevel', this.playerLevel);
-        console.log(this.playerExp, this.playerExpToNextLevel, this.playerLevel);
+        this.$store.commit('playerExpToNextLevel', this.playerLevel);
+        this.levelUp = true;
       }
       console.log("lvl: " + this.playerLevel);
     },
