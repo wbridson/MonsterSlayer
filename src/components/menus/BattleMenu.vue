@@ -40,9 +40,12 @@ export default {
       "monsterDef",
       "monsterAtk",
       "monsterExpPayout",
+      "monsterGoldPayout",
       "turnCounter",
       "specialAttackBaseManaUse",
       "healBaseManaUse",
+      "turnCounter"
+      
     ]),
     specialAttackDisabled() {
       return this.playerCurrentMana <= this.specialAttackBaseManaUse ? true : false;
@@ -56,13 +59,31 @@ export default {
       if (newCurrentHealth <= 0) {
         this.$store.commit("winner", "monster");
         this.$store.commit("updateGold", -75);
+        this.$store.commit("pushMessage", {
+          messageID: this.turnCounter,
+          actionBy: "player",
+          actionType: "lose gold",
+          actionValue: 75,
+        })
       }
     },
     monsterCurrentHealth(newCurrentHealth) {
       if (newCurrentHealth <= 0 && this.playerCurrentHealth > 0) {
         this.$store.commit("winner", "player");
-        this.$store.commit("updateGold", 100);
+        this.$store.commit("updateGold", this.monsterGoldPayout);
         this.$store.commit("awardExp", this.monsterExpPayout);
+        this.$store.commit("pushMessage", {
+          messageID: this.turnCounter,
+          actionBy: "player",
+          actionType: "award gold",
+          actionValue: this.monsterGoldPayout
+        });
+        this.$store.commit("pushMessage", {
+          messageID: this.turnCounter + "a",
+          actionBy: "player",
+          actionType: "award exp",
+          actionValue: this.monsterExpPayout
+        })
       }
     },
   },

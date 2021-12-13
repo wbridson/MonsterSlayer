@@ -30,6 +30,15 @@
         <span v-else-if="messages.actionType === 'new monster'" class="primary--text">
           hunts down a new monster. Monster Level: {{ messages.actionValue }}
         </span>
+        <span v-else-if="messages.actionType === 'receive gold'" class="primary--text">
+          is awarded {{ messages.actionValue }} gold for completing the quest.
+        </span>
+        <span v-else-if="messages.actionType === 'receive exp'" class="primary--text">
+          is awarded {{ messages.actionValue }} experience points for completing the quest.
+        </span>
+        <span v-else-if="messages.actionType === 'lose gold'" class="primary--text">
+          pays the owner <span class="log--damage">{{ messages.actionValue }}</span> gold for giving them a place to recover.
+        </span>
       </li>
     </ul>
   </v-card>
