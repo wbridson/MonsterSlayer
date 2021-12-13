@@ -1,3 +1,4 @@
+import { getRandomVal } from "../../functions";
 const state = {
   activeMonster: 0,
   monsters: [
@@ -63,14 +64,12 @@ const getters = {
   },
 };
 const mutations = {
-  selectNewMonster: (state) => {
+  selectNewMonster: (state, payload) => {
     state.activeMonster = Math.floor(Math.random() * state.monsters.length);
+    setMonsterLevel(state, payload);
   },
   resetMonsterHealth: (state) => {
     state.monsters[state.activeMonster].monsterCurrentHealth = state.monsters[state.activeMonster].monsterMaxHealth;
-  },
-  selectMonsterLevel: (state, payload) => {
-    state.monsters[state.activeMonster].monsterLevel = payload;
   },
   healMonster: (state, payload) => {
     state.monsters[state.activeMonster].monsterCurrentHealth += payload;
@@ -85,6 +84,11 @@ const actions = {
     context.commit("selectNewMonster");
   },
 };
+
+function setMonsterLevel(state, payload){
+  var lvl = Math.round(getRandomVal(payload - 3, payload + 4));
+  state.monsters[state.activeMonster].monsterLevel = lvl > 0 ? lvl : 1;
+}
 
 export default {
   state,

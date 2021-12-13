@@ -47,7 +47,7 @@ export default {
     potionPrice: 100,
   }),
   computed: {
-    ...mapGetters(["winner", "gold", "playerCurrentHealth", "playerMaxHealth", "activeMonster"]),
+    ...mapGetters(["winner", "gold", "playerCurrentHealth", "playerMaxHealth", "activeMonster", "monsterLevel", "playerLevel"]),
     contractButton() {
       if (this.isHoveringContractButton && this.playerCurrentHealth > 0) {
         return "btn primary--text d-flex flex-wrap align-center pa-3 ma-4 elevation-14";
@@ -71,7 +71,7 @@ export default {
     buyHealthPotion() {
       if (this.gold >= this.potionPrice) {
         var healAmt = heal(this.playerMaxHealth);
-        if(healAmt + this.playerCurrentHealth > this.playerMaxHealth){
+        if (healAmt + this.playerCurrentHealth > this.playerMaxHealth) {
           healAmt = this.playerMaxHealth - this.playerCurrentHealth;
         }
         this.$store.commit("healPlayer", healAmt);
@@ -79,10 +79,15 @@ export default {
       }
     },
     acceptNextContract() {
-      this.$store.commit("selectNewMonster");
+      this.$store.commit("selectNewMonster", this.playerLevel);
       this.$store.commit("resetMonsterHealth");
       this.$store.commit("winner", "");
-      console.log(this.activeMonster);
+      this.$store.commit("pushMessage", {
+        messageID: this.turnCounter,
+        actionBy: "player",
+        actionType: "new monster",
+        actionValue: this.monsterLevel,
+      });
     },
 
     hoverSwitch(button) {

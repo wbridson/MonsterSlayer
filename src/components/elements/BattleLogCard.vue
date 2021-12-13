@@ -27,8 +27,8 @@
         <span v-else-if="messages.actionType === 'flee'" class="primary--text">
           escapes and finds refuge in a nearby village. 
         </span>
-        <span v-else class="primary--text">
-          You hunt down a new monster. Monster Level: {{ messages.actionValue }}
+        <span v-else-if="messages.actionType === 'new monster'" class="primary--text">
+          hunts down a new monster. Monster Level: {{ messages.actionValue }}
         </span>
       </li>
     </ul>

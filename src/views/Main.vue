@@ -57,6 +57,7 @@ export default {
       "playerLevel",
       "playerExp",
       "playerExpToNextLevel",
+      "monsterLevel"
     ]),
   },
   watch: {
@@ -75,12 +76,12 @@ export default {
   mounted() {
     this.$store.commit("resetHealth");
     this.$store.commit("resetMana");
-    this.$store.commit("selectNewMonster");
+    this.$store.commit("selectNewMonster", this.playerLevel);
     this.$store.commit("pushMessage", {
       messageID: this.turnCounter,
-      actionBy: null,
-      actionType: null,
-      actionValue: null,
+      actionBy: "player",
+      actionType: "new monster",
+      actionValue: this.monsterLevel,
     });
   },
 };
