@@ -1,9 +1,9 @@
 <template>
   <section>
-    <section class="d-flex justify-center pb-5">
+    <section class="d-flex justify-center pb-5" v-if="winner != 'flee'">
       <h2 class="primary--text">You've encountered a Monster</h2>
     </section>
-    <section id="monsterInfo" class="d-flex justify-center pb-10">
+    <section id="monsterInfo" class="d-flex justify-center pb-10" v-if="winner != 'flee'">
       <monster-card></monster-card>
     </section>
     <section id="playerInfo" class="d-flex justify-center pb-7">
@@ -71,7 +71,6 @@ export default {
     },
   },
   methods: {
-    surrender() {},
   },
   mounted() {
     this.$store.commit("resetHealth");

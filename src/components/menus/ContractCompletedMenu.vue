@@ -8,6 +8,10 @@
       ><h3>You won!</h3>
       <h4>{{ gold }} gold earned.</h4></span
     >
+    <span v-else-if="winner === 'flee'" class="text-center primary--text"
+      ><h3>You got away!</h3>
+      <h4>Take some time to prepare for your next hunt.</h4></span
+    >
     <div class="d-flex text-wrap">
       <button
         :class="potionButton"

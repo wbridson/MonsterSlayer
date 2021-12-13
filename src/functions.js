@@ -23,5 +23,5 @@ function getRandomVal(min, max){
 }
 
 export{
-    calculateDamage, heal
+    calculateDamage, heal, getRandomVal
 }

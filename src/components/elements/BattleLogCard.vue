@@ -24,8 +24,8 @@
           used a special attack for
           <span class="log--damage">{{ messages.actionValue }}</span>
         </span>
-        <span v-else-if="messages.actionType === 'surrender'" class="primary--text">
-          ran for their life!
+        <span v-else-if="messages.actionType === 'flee'" class="primary--text">
+          escapes and finds refuge in a nearby village. 
         </span>
         <span v-else class="primary--text">
           You hunt down a new monster. Monster Level: {{ messages.actionValue }}

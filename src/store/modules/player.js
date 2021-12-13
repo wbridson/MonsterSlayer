@@ -15,7 +15,7 @@ const state = {
   baseMp: 30,
   baseAtk: 10,
   baseDef: 10,
-  baseInt: 10,
+  baseInt: 25,
   hpModifier: 7.8,
   mpModifier: 4.63,
   atkModifier: 2.13,
@@ -25,6 +25,9 @@ const state = {
   playerExpToNextLevel: 100,
   playerLevel: 1,
   attributePointsAvailable: 0,
+
+  specialAttackBaseManaUse: 7,
+  healBaseManaUse: 5,
 };
 
 const getters = {
@@ -75,6 +78,12 @@ const getters = {
   },
   playerExpToNextLevel: (state) => {
     return state.playerExpToNextLevel;
+  },
+  specialAttackBaseManaUse: (state) => {
+    return state.specialAttackBaseManaUse;
+  },
+  healBaseManaUse: (state) => {
+    return state.healBaseManaUse;
   },
   playerStatVariables: (state) => {
     return {
