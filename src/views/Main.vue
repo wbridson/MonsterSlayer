@@ -57,7 +57,9 @@ export default {
       "playerLevel",
       "playerExp",
       "playerExpToNextLevel",
-      "monsterLevel"
+      "monsterLevel",
+      "turnCounter",
+      "gold",
     ]),
   },
   watch: {
@@ -68,7 +70,6 @@ export default {
         this.$store.commit('playerExpToNextLevel', this.playerLevel);
         this.levelUp = true;
       }
-      console.log("lvl: " + this.playerLevel);
     },
   },
   methods: {

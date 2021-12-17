@@ -5,9 +5,7 @@
       <h4>You awaken at a nearby tavern.</h4></span
     >
     <span v-else-if="winner === 'player'" class="text-center primary--text"
-      ><h3>You won!</h3>
-      <h4>{{ gold }} gold earned.</h4></span
-    >
+      ><h3>You won!</h3></span>
     <span v-else-if="winner === 'flee'" class="text-center primary--text"
       ><h3>You got away!</h3>
       <h4>Take some time to prepare for your next hunt.</h4></span
@@ -15,17 +13,17 @@
     <div class="d-flex text-wrap">
       <button
         :class="potionButton"
-        :disabled="playerCurrentHealth >= playerMaxHealth || gold < potionPrice ? true : false"
-        style="max-width: 10em; max-height: 5em"
+        :disabled="potionButtonDisabled"
+        style="min-width: 10em; max-height: 5em"
         @mouseenter="hoverSwitch('potion')"
         @mouseleave="hoverSwitch('potion')"
         @click="buyHealthPotion"
       >
-        Health Potion (100g)
+        Rest at the Inn <br> ({{ potionPrice }})
       </button>
       <button
         :class="contractButton"
-        :disabled="playerCurrentHealth > 0 ? false : true"
+        :disabled="contractButtonDisabled"
         style="max-width: 10em; max-height: 5em"
         @mouseenter="hoverSwitch('contract')"
         @mouseleave="hoverSwitch('contract')"
@@ -44,28 +42,36 @@ export default {
   data: () => ({
     isHoveringPotionButton: false,
     isHoveringContractButton: false,
-    potionPrice: 100,
+    potionPrice: 125,
+    diableTimer: 1500,
+    reactionDisable: false
   }),
   computed: {
-    ...mapGetters(["winner", "gold", "playerCurrentHealth", "playerMaxHealth", "activeMonster", "monsterLevel", "playerLevel"]),
+    ...mapGetters(["winner", "gold", "playerCurrentHealth", "playerMaxHealth", "playerCurrentMana", "playerMaxMana", "activeMonster", "monsterLevel", "playerLevel"]),
     contractButton() {
-      if (this.isHoveringContractButton && this.playerCurrentHealth > 0) {
+      if (this.isHoveringContractButton && !this.contractButtonDisabled) {
         return "btn primary--text d-flex flex-wrap align-center pa-3 ma-4 elevation-14";
-      } else if (!this.isHoveringContractButton && this.playerCurrentHealth > 0) {
+      } else if (!this.isHoveringContractButton && !this.contractButtonDisabled) {
         return "btn primary--text d-flex flex-wrap align-center pa-3 ma-4";
       } else {
         return "btn lighten-4 primary--text flex-wrap align-center pa-3 ma-4";
       }
     },
     potionButton() {
-      if (this.isHoveringPotionButton && this.gold >= 100 && this.playerCurrentHealth < this.playerMaxHealth) {
-        return "btn primary--text d-flex flex-wrap align-center pa-3 ma-4 elevation-14";
-      } else if (!this.isHoveringPotionButton && this.gold >= 100 && this.playerCurrentHealth < this.playerMaxHealth) {
-        return "btn primary--text d-flex flex-wrap align-center pa-3 ma-4";
+      if (this.isHoveringPotionButton && !this.potionButtonDisabled) {
+        return "btn primary--text d-flex flex-wrap align-center justify-center pa-3 ma-4 elevation-14";
+      } else if (!this.isHoveringPotionButton && !this.potionButtonDisabled) {
+        return "btn primary--text d-flex flex-wrap align-center justify-center pa-3 ma-4";
       } else {
-        return "btn primary--text lighten-4 flex-wrap align-center pa-3 ma-4";
+        return "btn primary--text lighten-4 flex-wrap align-center justify-center pa-3 ma-4";
       }
     },
+    contractButtonDisabled(){
+      return this.playerCurrentHealth < 0 || this.reactionDisable ? true : false
+    },
+    potionButtonDisabled(){
+      return this.playerCurrentHealth >= this.playerMaxHealth && this.playerCurrentMana >= this.playerMaxMana || this.gold < this.potionPrice || this.reactionDisable ? true : false
+    }
   },
   methods: {
     buyHealthPotion() {
@@ -74,13 +80,17 @@ export default {
         if (healAmt + this.playerCurrentHealth > this.playerMaxHealth) {
           healAmt = this.playerMaxHealth - this.playerCurrentHealth;
         }
+        var manaRestoreAmt = heal(this.playerMaxMana);
+        if(manaRestoreAmt + this.playerCurrentMana > this.playerMaxMana){
+          manaRestoreAmt = this.playerMaxMana - this.playerCurrentMana;
+        }
         this.$store.commit("healPlayer", healAmt);
+        this.$store.commit("updateMana", manaRestoreAmt);
         this.$store.commit("updateGold", -this.potionPrice);
       }
     },
     acceptNextContract() {
       this.$store.commit("selectNewMonster", this.playerLevel);
-      this.$store.commit("resetMonsterHealth");
       this.$store.commit("winner", "");
       this.$store.commit("pushMessage", {
         messageID: this.turnCounter,
@@ -98,5 +108,11 @@ export default {
       }
     },
   },
+  mounted(){
+    this.reactionDisable = true;
+    setTimeout(() => {
+      this.reactionDisable = false;
+    }, this.diableTimer)
+  }
 };
 </script>

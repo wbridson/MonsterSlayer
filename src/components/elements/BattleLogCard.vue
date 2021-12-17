@@ -28,7 +28,7 @@
           escapes and finds refuge in a nearby village. 
         </span>
         <span v-else-if="messages.actionType === 'new monster'" class="primary--text">
-          hunts down a new monster. Monster Level: {{ messages.actionValue }}
+          accepts a contract for a level {{ messages.actionValue }} {{ monsterName }} and tracks it down. 
         </span>
         <span v-else-if="messages.actionType === 'receive gold'" class="primary--text">
           is awarded {{ messages.actionValue }} gold for completing the quest.
@@ -45,11 +45,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
     computed: {
-      log(){
-        return this.$store.getters.log;
-      }
+      ...mapGetters(["log", "monsterName"])
     }
 };
 </script>
@@ -78,6 +77,6 @@ export default {
 }
 
 .log--heal {
-  color: green;
+  color: lime;
 }
 </style>

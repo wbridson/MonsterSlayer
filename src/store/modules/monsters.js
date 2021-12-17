@@ -2,10 +2,10 @@ import { getRandomVal } from "../../functions";
 const state = {
   activeMonster: 0,
   hpModifier: 3.5,
-  atkModifier: .5,
-  defModifier: .5,
-  goldModifier: .5,
-  expModifier: .5,
+  atkModifier: 5.2,
+  defModifier: 2.3,
+  goldModifier: 5.8,
+  expModifier: 9.9,
   monsters: [
     {
       monsterID: 0,
@@ -16,8 +16,8 @@ const state = {
       monsterDef: 0,
       monsterGoldPayout: 0,
       monsterExpPayout: 0,
-      monsterBaseExpPayout: 100,
-      monsterBaseGoldPayout: 70,
+      monsterBaseExpPayout: 130,
+      monsterBaseGoldPayout: 75,
       monsterBaseMaxHealth: 200,
       monsterCurrentHealth: 200,
       monsterBaseAtk: 10,
@@ -32,7 +32,7 @@ const state = {
       monsterDef: 0,
       monsterGoldPayout: 0,
       monsterExpPayout: 0,
-      monsterBaseExpPayout: 100,
+      monsterBaseExpPayout: 115,
       monsterBaseGoldPayout: 48,
       monsterBaseMaxHealth: 90,
       monsterCurrentHealth: 90,
@@ -48,11 +48,11 @@ const state = {
       monsterDef: 0,
       monsterGoldPayout: 0,
       monsterExpPayout: 0,
-      monsterBaseExpPayout: 100,
+      monsterBaseExpPayout: 122,
       monsterBaseGoldPayout: 60,
       monsterBaseMaxHealth: 120,
       monsterCurrentHealth: 120,
-      monsterBaseAtk: 10,
+      monsterBaseAtk: 20,
       monsterBaseDef: 2,
     },
   ],
@@ -99,9 +99,6 @@ const mutations = {
     setMonsterLevel(state, payload);
     setMonsterStats(state);
   },
-  resetMonsterHealth: (state) => {
-    state.monsters[state.activeMonster].monsterCurrentHealth = state.monsters[state.activeMonster].monsterBaseMaxHealth;
-  },
   healMonster: (state, payload) => {
     state.monsters[state.activeMonster].monsterCurrentHealth += payload;
   },
@@ -124,10 +121,9 @@ function setMonsterStats(state){
   state.monsters[state.activeMonster].monsterMaxHealth = Math.round(state.monsters[state.activeMonster].monsterBaseMaxHealth + (state.hpModifier * state.monsters[state.activeMonster].monsterLevel) + getRandomVal(3, 14));
   state.monsters[state.activeMonster].monsterAtk = state.monsters[state.activeMonster].monsterBaseAtk + (state.atkModifier * state.monsters[state.activeMonster].monsterLevel);
   state.monsters[state.activeMonster].monsterDef = state.monsters[state.activeMonster].monsterBaseDef + (state.defModifier * state.monsters[state.activeMonster].monsterLevel);
-  state.monsters[state.activeMonster].monsterExpPayout = state.monsters[state.activeMonster].monsterBaseExp + (state.expModifier * state.monsters[state.activeMonster].monsterLevel);
-  state.monsters[state.activeMonster].monsterGoldPayout = state.monsters[state.activeMonster].monsterBaseGoldPayout + (state.goldModifier * state.monsters[state.activeMonster].monsterLevel);
+  state.monsters[state.activeMonster].monsterExpPayout = Math.round(state.monsters[state.activeMonster].monsterBaseExpPayout + (state.expModifier * state.monsters[state.activeMonster].monsterLevel));
+  state.monsters[state.activeMonster].monsterGoldPayout = Math.round(state.monsters[state.activeMonster].monsterBaseGoldPayout + (state.goldModifier * state.monsters[state.activeMonster].monsterLevel));
   state.monsters[state.activeMonster].monsterCurrentHealth = Math.round(state.monsters[state.activeMonster].monsterMaxHealth);
-  console.log(state.monsters[state.activeMonster].monsterMaxHealth)
 }
 
 export default {

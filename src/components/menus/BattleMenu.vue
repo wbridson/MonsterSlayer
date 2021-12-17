@@ -44,7 +44,8 @@ export default {
       "turnCounter",
       "specialAttackBaseManaUse",
       "healBaseManaUse",
-      "turnCounter"
+      "turnCounter",
+      "log"
       
     ]),
     specialAttackDisabled() {
@@ -75,13 +76,13 @@ export default {
         this.$store.commit("pushMessage", {
           messageID: this.turnCounter,
           actionBy: "player",
-          actionType: "award gold",
+          actionType: "receive gold",
           actionValue: this.monsterGoldPayout
         });
         this.$store.commit("pushMessage", {
-          messageID: this.turnCounter + "a",
+          messageID: `${this.turnCounter}a`,
           actionBy: "player",
-          actionType: "award exp",
+          actionType: "receive exp",
           actionValue: this.monsterExpPayout
         })
       }
@@ -89,13 +90,13 @@ export default {
   },
   methods: {
     attackMonster() {
-      const dmgToMonster = calculateDamage(this.playerAtkValue, this.monsterDef);
+      const dmgToMonster = calculateDamage(this.playerAtkValue, this.monsterDef, false);
       const dmgToPlayer = this.attackPlayer();
       this.$store.commit("damageMonster", dmgToMonster);
       this.pushMessage("attack", dmgToMonster, dmgToPlayer);
     },
     specialAttackMonster() {
-      const dmgToMonster = calculateDamage(this.playerIntelligenceValue, this.monsterDef);
+      const dmgToMonster = calculateDamage(this.playerIntelligenceValue, this.monsterDef, true);
       const dmgToPlayer = this.attackPlayer();
       this.$store.commit("damageMonster", dmgToMonster);
       this.pushMessage("special attack", dmgToMonster, dmgToPlayer);
@@ -127,13 +128,13 @@ export default {
     },
     pushMessage(actionType, dmgToMonster, dmgToPlayer) {
       this.$store.commit("pushMessage", {
-        messageID: this.turnCounter,
+        messageID: this.turnCounter + "player",
         actionBy: "player",
         actionType: actionType,
         actionValue: dmgToMonster,
       });
       this.$store.commit("pushMessage", {
-        messageID: this.turnCounter,
+        messageID: this.turnCounter + "monster",
         actionBy: "monster",
         actionType: "attack",
         actionValue: dmgToPlayer,

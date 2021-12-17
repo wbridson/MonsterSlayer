@@ -228,6 +228,11 @@ export default {
       this.intDecreaseDisabled = true;
       this.tempAttributePointsAvailable == 0 ? this.confirmDisabled = true : false;
       this.setTempValues();
+      console.log(this.playerMaxHealth);
+      console.log(this.playerMaxMana);
+      console.log(this.playerAtkValue);
+      console.log(this.playerDefValue);
+      console.log(this.playerIntelligenceValue)
 
     },
     setTempValues() {
