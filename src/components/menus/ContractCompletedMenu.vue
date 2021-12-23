@@ -67,7 +67,7 @@ export default {
       }
     },
     contractButtonDisabled(){
-      return this.playerCurrentHealth < 0 || this.reactionDisable ? true : false
+      return this.playerCurrentHealth <= 0 || this.reactionDisable ? true : false
     },
     potionButtonDisabled(){
       return this.playerCurrentHealth >= this.playerMaxHealth && this.playerCurrentMana >= this.playerMaxMana || this.gold < this.potionPrice || this.reactionDisable ? true : false

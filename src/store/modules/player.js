@@ -7,7 +7,7 @@ const state = {
   playerMaxManaPoints: 5,
   playerAtkPoints: 10,
   playerAtkValue: 0,
-  playerDefPoints: 0,
+  playerDefPoints: 5,
   playerDefValue: 0,
   playerIntelligencePoints: 5,
   playerIntelligenceValue: 0,

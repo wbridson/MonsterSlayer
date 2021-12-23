@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section style="min-height: 100%">
     <section class="d-flex justify-center pb-5" v-if="winner != 'flee'">
       <h2 class="primary--text">You've encountered a Monster</h2>
     </section>
@@ -60,6 +60,7 @@ export default {
       "monsterLevel",
       "turnCounter",
       "gold",
+      "playerDefPoints",
     ]),
   },
   watch: {
@@ -84,6 +85,7 @@ export default {
       actionType: "new monster",
       actionValue: this.monsterLevel,
     });
+    console.log(this.playerDefPoints)
   },
 };
 </script>

@@ -2,7 +2,7 @@
   <v-app>
     <section class="secondary darken-3">
     <the-header></the-header>
-    <v-main >
+    <v-main style="min-height: 62em" >
       <router-view />
     </v-main>
     </section>

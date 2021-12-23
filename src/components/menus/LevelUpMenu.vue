@@ -244,7 +244,7 @@ export default {
       this.tempAtkPoints = this.playerAtkPoints;
       this.tempAtkValue = this.playerAtkValue;
       this.tempDefPoints = this.playerDefPoints;
-      this.tmepDefValue = this.playerDefValue;
+      this.tempDefValue = this.playerDefValue;
       this.tempIntPoints = this.playerIntelligencePoints;
       this.tempIntValue = this.playerIntelligenceValue;
       this.confirmDisableCounter = this.attributePointsAvailable;
